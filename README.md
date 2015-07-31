@@ -4,6 +4,8 @@
 
 本課程只著重在 Swift 程式語言，不涉及 Cocoa 等 Framework。
 
+[Sample Code](https://github.com/kigichang/swift-2.0-sample)
+
 環境：
 
 * 開發工具為 XCode 7 beta 4
