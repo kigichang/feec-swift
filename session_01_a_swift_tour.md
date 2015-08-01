@@ -158,6 +158,7 @@
     
     `switch` - `case` 一定要將所有狀況都列進去，否則 compiler 會出錯，因此建議在使用時，都用 `default` 當結束。
     
+    `case` 除了可以是常數值外，也可以使用類似 `if` 的判斷式
     
     ```
     let vegetable = "red pepper"
@@ -260,3 +261,38 @@
 
     print(m)
     ```
+    
+##  Function and Closure
+
+宣告 Function 的語法。
+
+```
+func 名稱(變數: 資料型態, ...) -> 回傳資料型態 {
+    return 值
+}
+```
+
+eg: 
+
+```
+func greet(name: String, day: String) -> String {
+    return "Hello \(name), today is \(day)."
+}
+
+func total(amount: Int,times: Int, a: Int) -> Int {
+    return amount * times * a
+}
+```
+
+* Named Arguement
+
+    呼叫時，除了第一個參數可以不用帶變數名稱外，第二個變數之後，都要帶變數名稱。
+    
+    eg:
+    
+    ```
+    print(greet("Bob", day: "Tuesday"))
+
+    print(total(30, times: 20, a: 30))
+    ```
+    
