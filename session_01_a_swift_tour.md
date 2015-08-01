@@ -1,6 +1,6 @@
 # A Swift Tour
 
-## 與 Object-C 差別
+## 主程式
 
 * 原本需要 `include` I/O 及 String 處理相關 library；XCode 預設會 `import Foundation`。
   * 原：`inlcude` 改成 `import`
@@ -151,3 +151,35 @@
 
     print(greeting)
     ```
+    
+* swich - case
+
+    原本在 C 使用 switch - case 時，一定要用 `break` 去結束 `case` 內程式碼的執行，否則會往下一個 `case` 執行。在 Swift 則可省略 `break`，預設會自動中斷；如果要往下執行，則可使用 `fallthrough`；如果 `case` or `default` 不做任何事情，則就需要使用 `break`
+    
+    `switch` - `case` 一定要將所有狀況都列進去，否則 compiler 會出錯，因此建議在使用時，都用 `default` 當結束。
+    
+    
+    ```
+    let vegetable = "red pepper"
+
+    var vegetableComment = "Everything tastes good in soup."
+
+    switch vegetable {
+        
+    case "celery":                          // 一般的比對
+        vegetableComment = "Add some raisins and make ants on a log."
+        
+    case "cucumber", "watercress":          // 符合多種條件
+        vegetableComment = "That would make a good tea sandwich."
+        
+    case let x where x.hasSuffix("pepper"): // 經過運算符合條件
+        vegetableComment = "Is it a spicy \(x)?"
+        
+    default:
+        break   // 不做任何事，要用 break
+        
+    }
+
+    print(vegetableComment)
+    ```
+
