@@ -183,3 +183,80 @@
     print(vegetableComment)
     ```
 
+* Range
+
+    * Include Both `...`。如：`1...10`，是指從 **1** 到 **10**。
+    * Exclude Upper `..<`。如：`1..<10`，是指從 **1** 到 **9**。**不包含** 10。
+
+* for - in
+
+    * Range
+
+        ```
+        for i in 1...10 {
+            print(i)
+        }
+
+        for i in 1..<10 {
+            print(i)
+        }
+        ```
+    * C like
+
+        ```
+        for var i = 0; i < 10; i++ {
+            print(i)
+        }
+        ```
+
+    * Array
+
+        ```
+        let shoppingList = ["catfish", "water", "tulips", "blue paint"]
+
+        for item in shoppingList {
+            print(item)
+        }
+        ```
+    
+    * Dictionary
+
+        ```
+        let interestingNumbers = [
+            "Prime": [2, 3, 5, 7, 11, 13],
+            "Fibonacci": [1, 1, 2, 3, 5, 8],
+            "Square": [1, 4, 9, 16, 25]
+        ]
+
+        var largest = 0
+
+        for (kind, numbers) in interestingNumbers {
+            for number in numbers {
+                if number > largest {
+                    largest = number
+                }
+            }
+        }
+
+        print(largest)
+        ``` 
+        
+* while and repeat - while
+
+    ```
+    var n = 2
+
+    while n < 100 {
+        n *= 2
+    }
+
+    print(n)
+
+    var m = 2
+
+    repeat {
+        m *= 2
+    } while m < 100
+
+    print(m)
+    ```
