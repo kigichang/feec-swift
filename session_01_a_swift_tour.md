@@ -95,3 +95,59 @@
         let emptyDictionary2 = [:]              // 不指定資料型別
         
         ```
+        
+## Control Flow
+
+* if
+
+    `if` 內的判斷式，一定是要 **boolean**，不像 C，可以放數字 or null. 
+
+    ```
+    let score = 30
+
+    var teamScore = 0
+
+    if score >= 50 {
+        teamScore += 3
+    }
+    else if score >= 30 {
+        teamScore += 2
+    }
+    else {
+        teamScore += 1
+    }
+
+    print(teamScore)
+    ```
+    
+* if and Optional
+
+    建議原本使用 null 的機制，都改成用 Optional。宣告的方式，只要在資料型別後，加 `?`。如：`var optionalString: String? = "Hello"`
+        
+    ```
+    var optionalString: String? = "Hello"
+
+    print(optionalString)
+
+    print(optionalString == nil)
+
+    var optionalName: String? = "John Appleseed"
+
+    var greeting = "Hello!"
+
+    if let name = optionalName {
+        greeting = "Hello, \(name)"
+    }
+
+    print(greeting)
+
+    greeting = "Hello!"
+    optionalName = nil
+
+    if var name = optionalName {    // 也可以用 var，可以 re-assign
+        greeting = "Hello, \(name)"
+        name = "test var"
+    }
+
+    print(greeting)
+    ```
