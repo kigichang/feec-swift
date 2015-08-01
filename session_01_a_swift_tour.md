@@ -33,7 +33,7 @@
     let label = "This width is "
     let width = 94
     let widthLabel = label + String(width)
-
+    
     ```
 
 * String interpolation：用 `\()`
@@ -44,6 +44,9 @@
 
     let appleSummary = "I have \(apples) apples."
     let fruitSummary = "I have \(apples + oranges) pieces of fruit."
+    print(appleSummary)
+    print(fruitSummary)
+    
     ```
 
 ## Array and Dictionary
@@ -57,6 +60,7 @@
     shoppingList[1] = "bottle of water"
 
     print(shoppingList[1])
+    
     ```
     
     * Empty Array
@@ -64,6 +68,7 @@
         ```
         let emptyArray = [String]() // 指定資料型別
         let emptyArray2 = []        // 不指定資料型別
+        
         ```
         
 * Dictionary 宣告：`[:]`
@@ -79,6 +84,7 @@
     occupations["Jayne"] = "Public Relations"
         
     print(occupations["Jayne"])
+    
     ```
     
     * Empty Map
@@ -86,4 +92,5 @@
         ```
         let emptyDictionary = [String: Float]() // 指定資料型別
         let emptyDictionary2 = [:]              // 不指定資料型別
+        
         ```
