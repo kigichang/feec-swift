@@ -44,6 +44,7 @@
 
     let appleSummary = "I have \(apples) apples."
     let fruitSummary = "I have \(apples + oranges) pieces of fruit."
+    
     print(appleSummary)
     print(fruitSummary)
     
