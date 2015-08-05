@@ -329,4 +329,25 @@ func total(amount: Int,times: Int, a: Int) -> Int {
     print(result.avg)   // name
         
     ```
+
+* Variable Number of Arugements
+
+    Function 可以接受不定個數的變數傳入。
+    
+    ```
+    func sumOf(numbers: Int...) -> Int {
+        
+        var sum = 0
+        
+        for number in numbers {
+            sum += number
+        }
+        
+        return sum
+    }
+
+    print(sumOf())
+    print(sumOf(42, 597, 12))
+    
+    ```
     
