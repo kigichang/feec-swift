@@ -296,3 +296,37 @@ func total(amount: Int,times: Int, a: Int) -> Int {
     print(total(30, times: 20, a: 30))
     ```
     
+* Tuple
+    
+    Tuple 可以包含不同資料型態的資料。eg: (x, y, z)，其中的 x, y, z 的資料型別可以不一樣。取值的時候，可以使用宣告的名稱，或者用數字(**0-index**)
+    
+    eg:
+    
+    ```
+    func calc(scores: [Int]) -> (min: Int, max: Int, sum: Int, avg: Double) {
+        
+        var min = scores[0]
+        var max = scores[0]
+        var sum = 0
+        
+        
+        for score in scores {
+            if score > max {
+                max = score
+            } else if score < min {
+                min = score
+            }
+            
+            sum += score
+        }
+        
+        return (min, max, sum, Double(sum) / Double(scores.count))
+    }
+
+    let result = calc([5, 3, 100, 3, 9])
+
+    print(result.3)     // by 0-index
+    print(result.avg)   // name
+        
+    ```
+    
