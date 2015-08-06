@@ -1,4 +1,4 @@
-# A Swift Tour
+# A Swift Tour - Fundamentals
 
 ## 主程式
 
@@ -284,7 +284,7 @@ func total(amount: Int,times: Int, a: Int) -> Int {
 }
 ```
 
-* Named Arguement
+* Named Argument
 
     呼叫時，除了第一個參數可以不用帶變數名稱外，第二個變數之後，都要帶變數名稱。
     
@@ -330,7 +330,7 @@ func total(amount: Int,times: Int, a: Int) -> Int {
         
     ```
 
-* Variable Number of Arugements
+* Variable Number of Arguments
 
     Function 可以接受不定個數的變數傳入。
     
@@ -351,3 +351,102 @@ func total(amount: Int,times: Int, a: Int) -> Int {
     
     ```
     
+* Nested Function
+
+    在 Function 內，還可以再宣告 Function
+    
+    ```
+    func returnFifteen() -> Int {
+        
+        var y = 10
+        
+        func add() {
+            y += 5
+        }
+        
+        add()
+        
+        return y
+    }
+
+    print(returnFifteen())
+
+    ```
+
+* First-Class Type and Closure
+
+    一個程式語言有 First-Class Function 特性，是指此程式語言將 Function 當作是一種資料型態。
+    
+    * 語法：
+    
+        ```
+        { (parameter, parament, ...) -> return type in 
+            statemetns
+        }
+        ```
+    
+    * 當作回傳值
+    
+        ```
+        func makeIncrementer() -> (Int -> Int) {
+            
+            func addOne(number: Int) -> Int {
+                return 1 + number
+            }
+            
+            return addOne
+        }
+
+        var increment = makeIncrementer()
+
+        print(increment)
+        print(increment(7))
+        ```
+
+    * 當作參數傳入
+    
+        ```
+        func hasAnyMatches(list: [Int], condition: Int -> Bool) -> Bool {
+            for item in list {
+                if condition(item) {
+                    return true
+                }
+            }
+            
+            return false
+        }
+
+        func lessThenTen(number: Int) -> Bool {
+            return number < 10
+        }
+
+        let numbers = [20, 19, 7, 12]
+        print(hasAnyMatches(numbers, condition: lessThenTen))
+
+        ```
+        
+    * Closure
+
+        ```
+        let newNumbers = numbers.map({
+            (number: Int) -> Int in
+            let result = 3 * number
+            return result
+        })
+        
+        let mappedNumbers = numbers.map { number in 3 * number } // 小括號可以省略
+
+        print(numbers)
+        print(newNumbers)
+        print(mappedNumbers)
+
+        let sortedNumbers = numbers.sort { $0 > $1 } // 變數編號 0-index
+
+        print(sortedNumbers)
+
+        let sortedNumbers2 = numbers.sort( > )      // 最簡化寫法
+
+        print(sortedNumbers2)
+
+        ```
+        
