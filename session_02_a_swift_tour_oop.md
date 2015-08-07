@@ -150,6 +150,7 @@ print(shape.simpleDescription())
     * `willSet`: 修改前。會提供一個 **implicit** 變數 `newValue`，代表輸入的新值。
     * `didSet`: 修改後。會提供一個 **implicit** 變數 `oldValue`，代表原來的值。
 
+
     ```
     class TriangleAndSquare {
         var triangle: EquilateralTriangle {
@@ -194,3 +195,216 @@ print(shape.simpleDescription())
     print(triangleAndSquare.triangle.sideLength)
     ```
 
+## Enumeration
+    
+Enumeration 多用在**狀態**值。用 `enum` 宣告，`enum` 裏也可以宣告 Function。
+
+使用 `enum` 宣告時，可以指定 enumeration 的原始資料型別。
+
+eg:
+
+```
+enum Rank: Int {
+    case Ace = 1
+    
+    case Two, Three, Four, Five, Six, Seven, Eight, Nine, Ten
+    
+    case Jack, Queen, King
+    
+    func simpleDescription() -> String {
+        switch self {
+        case .Ace:
+            return "ace"
+        case .Jack:
+            return "jack"
+        case .Queen:
+            return "queen"
+        case .King:
+            return "king"
+        default:
+            return String(self.rawValue)
+        }
+    }
+}
+
+let jack = Rank.Jack
+print(jack.rawValue)
+
+```
+
+上面的 `Rank` 的原始資料型別是 `Int`。有指定原始資料型別時，就會有 `rawValue` 這個變數可以使用。使用 `Int` 時，只要宣告第一個元素(`Ace`)的值，之後會依續自動給值. 
+
+Enumeration 有指定資料型別時，會自動產生 contructor: `init?(rawValue:)`，因此可以傳入 `rawValue` 來產生 enumeration。注意：回傳是一個 Optional 型別。
+
+eg:
+
+```
+func RankFromRaw(raw: Int) {
+    if let rank = Rank(rawValue: raw) {
+        print(rank.simpleDescription())
+    }
+    else {
+        print("not Match")
+    }
+}
+
+RankFromRaw(1)
+RankFromRaw(14)
+
+```
+
+enumeration 也可以不指定資料型別。不過建議還是指定，因為通常我們都會儲存狀態值。
+
+eg:
+
+```
+enum Suit {
+    
+    case Spades, Hearts, Diamonds, Clubs
+    
+    func simpleDescription() -> String {
+        switch self {
+        case .Spades:
+            return "spades"
+            
+        case .Hearts:
+            return "hearts"
+            
+        case .Diamonds:
+            return "diamonds"
+            
+        case .Clubs:
+            return "clubs"
+        }
+    }
+    
+    func color() -> String {
+        switch self {
+        case .Spades, .Clubs:
+            return "black"
+        case .Hearts, .Diamonds:
+            return "red"
+        }
+    }
+}
+
+```
+
+enumeration 的元素，也可以儲存狀態值。
+
+```
+enum ServerResponse {
+    case Result(String, String)
+    case Error(String)
+}
+
+let success = ServerResponse.Result("6:00 AM", "8:09 PM")
+let failure = ServerResponse.Error("Out of cheese.")
+
+switch success {
+    
+case let .Result(sunrise, sunset):
+    print("Sunrise is at \(sunrise) and sunset is at \(sunset)")
+    
+case let .Error(error):
+    print("Failure...\(error)")
+    
+}
+
+```
+
+## Structure
+
+Structure 與 Class 相似，可以有 Property 及 Function
+
+```
+struct Card {
+    let rank: Rank
+    let suit: Suit
+    
+    func simpleDescription() -> String {
+        return "The \(rank.simpleDescription()) of \(suit.color()) \(suit.simpleDescription())"
+    }
+}
+
+let treeOfSpades = Card(rank: .Three, suit: .Spades)
+
+print(treeOfSpades.simpleDescription())
+```
+
+Structure(**Value Type**) 與 Class (**Reference Type**) 的比較，後續會詳細說明。
+
+## Protocol
+
+Protocol 跟 Java Interface 類似。在 Swift，Class, Enumeration, 及 Structure 都可以繼承 Protocol。
+
+```
+protocol ExampleProtocol {
+    var simpleDescription: String { get }
+    
+    mutating func adjust()
+}
+
+class SimpleClass: ExampleProtocol {
+    var simpleDescription = "A very simple class."
+    
+    var anotherProperty: Int = 69105
+    
+    func adjust() {
+        simpleDescription += " Now 100% adjusted"
+    }
+}
+
+let a = SimpleClass()
+a.adjust()
+print(a.simpleDescription)
+
+struct SimpleStructure: ExampleProtocol {
+    
+    var simpleDescription = "A very simple structure."
+    
+    mutating func adjust() {
+        simpleDescription += " (adjusted)"
+    }
+}
+
+var b = SimpleStructure()
+b.adjust()
+print(b.simpleDescription)
+
+
+```
+
+如果是 **Value Type**(Structure, Enumeration 等)，改寫 Function 時，記得要加 `mutating`，**Reference Type**(Class)則不用。
+
+## Extension
+
+`extension` 可以讓都原本定義好的資料型別，再擴充客製的 Function。`extension` 可以搭配 `protocol` 使用。
+
+eg:
+
+```
+let testDouble = -10.0
+print(testDouble)
+print(testDouble.abs())
+
+extension Int: ExampleProtocol {
+    
+    var simpleDescription: String {
+        return "The number \(self)"
+    }
+    
+    mutating func adjust() {
+        self += 42
+    }
+}
+
+var seven: Int = 7
+
+print(seven.simpleDescription)
+seven.adjust()
+print(seven.simpleDescription)
+
+```
+
+## Generic
