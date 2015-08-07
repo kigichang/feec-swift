@@ -2,7 +2,7 @@
 
 ## Class
 
-用 `class` 來宣告物件，Class 裏面的屬性(**Property**)也分變數(`var`)及常數(`let`). Function 的宣告也和先前一樣。
+用 `class` 來宣告物件，Class 裏面的屬性(**Property**)，也分變數(`var`)及常數(`let`). Function 的宣告也和先前一樣。
 
 原本 C 語言，使用 `new` 來產生實體 (object or instance)；在 Swift 則不用 `new`。
 
@@ -142,3 +142,55 @@ print(shape.simpleDescription())
     print(triangle.perimeter)
         
     ```
+    
+* Property Observers
+
+    Swift 提供追蹤 Property 更改過程。Property Observers 的機制，除了可以用在 Class Property外，也可以用在一般變數。
+    
+    * `willSet`: 修改前。會提供一個 **implicit** 變數 `newValue`，代表輸入的新值。
+    * `didSet`: 修改後。會提供一個 **implicit** 變數 `oldValue`，代表原來的值。
+
+    ```
+    class TriangleAndSquare {
+        var triangle: EquilateralTriangle {
+            
+            willSet {
+                print("triangle willSet \(newValue.sideLength)")
+                square.sideLength = newValue.sideLength
+            }
+            
+            didSet {
+                print("triangle didSet \(oldValue.sideLength)")
+            }
+        }
+        
+        var square: Square {
+            
+            willSet {
+                print("square willSet \(newValue.sideLength)")
+                triangle.sideLength = newValue.sideLength
+            }
+            
+            didSet {
+                print("square didSet \(oldValue.sideLength)")
+            }
+        }
+        
+        init(size: Double, name: String) {
+            square = Square(sideLength: size, name: name)
+            triangle = EquilateralTriangle(sideLength: size, name: name)
+        }
+        
+    }
+
+    let triangleAndSquare = TriangleAndSquare(size: 10.0, name: "another test shape")
+
+    print(triangleAndSquare.square.sideLength)
+    print(triangleAndSquare.triangle.sideLength)
+
+    print("start set square")
+    triangleAndSquare.square = Square(sideLength: 50.0, name: "larger square")
+    print("end set square")
+    print(triangleAndSquare.triangle.sideLength)
+    ```
+
