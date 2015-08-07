@@ -408,3 +408,69 @@ print(seven.simpleDescription)
 ```
 
 ## Generic
+
+Generic 主要是將資料型態也當作是一種變數。最初是要解決相同工作的 Function，只是因為資料型別不同，就要依每種資料型別都寫一套。在 C++ 有 Template 技術. 
+
+使用 Generic 可以解決資料轉型 (cast) 的問題。以往使用 Collection (如：HashMap, Array)。如果沒有指定型別時，取值都需要做轉型，也造成程式的不可靠。(因為 cast error 是在 runtime 會才會發現，且發現時，程式也當掉了)。有了 Generic，可以在 compiler time 時期，就檢查資料型別是否正確。
+
+eg:
+
+```
+func repeatInt(item: Int, numberOfTimes: Int) ->[Int] {
+    var result = [Int]()
+    
+    for _ in 0..<numberOfTimes {
+        result.append(item)
+    }
+    
+    return result
+}
+
+func repeatDouble(item: Double, numberOfTimes: Int) ->[Double] {
+    var result = [Double]()
+    
+    for _ in 0..<numberOfTimes {
+        result.append(item)
+    }
+    
+    return result
+}
+
+func repeatItem<T>(item: T, numberOfTimes: Int) ->[T] {
+    var result = [T]()
+    
+    for _ in 0..<numberOfTimes {
+        result.append(item)
+    }
+    
+    return result
+}
+
+print(repeatItem(10, numberOfTimes: 4))
+```
+
+使用 Generic 時，也可以使用 `where` 來限定 generic 必需是繼承自那個資料型別。
+
+eg:
+
+```
+func anyCommonElements<T, U where T: SequenceType, U: SequenceType, T.Generator.Element: Equatable, T.Generator.Element == U.Generator.Element> (lhs: T, _ rhs: U) -> Bool {
+    
+    for lhsItem in lhs {
+        for rhsItem in rhs {
+            if lhsItem == rhsItem {
+                return true
+            }
+        }
+    }
+    
+    return false
+}
+
+print(anyCommonElements([1, 2, 3,], [3]))
+
+```
+
+建議：Generic 的機制雖然很好用，但儘量不要搞得太複雜。
+
+
