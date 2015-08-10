@@ -384,6 +384,17 @@ print(b.simpleDescription)
 eg:
 
 ```
+extension Double {
+    func abs() -> Double {
+        if self < 0 {
+            return -self
+        }
+        else {
+            return self
+        }
+    }
+}
+
 let testDouble = -10.0
 print(testDouble)
 print(testDouble.abs())
